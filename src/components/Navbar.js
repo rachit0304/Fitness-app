@@ -16,6 +16,9 @@ const Navbar = () => {
     <a href="#exercises" style={{textDecoration: 'none', color: '#3A1212'}}>
       Exercises
     </a>
+    <Link to="/bmicalculator" style={{textDecoration: 'none', color: '#3A1212'}}>
+      BMI Calculator
+    </Link>
    </Stack>
     </Stack>
   )
