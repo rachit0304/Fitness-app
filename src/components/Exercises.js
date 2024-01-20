@@ -4,30 +4,25 @@ import { Box,Stack, Typography } from '@mui/material/';
 
 import { exerciseOptions, fetchData } from '../utils/fetchData';
 import ExerciseCard from './ExerciseCard';
+import Loader from './Loader';
 
 const Exercises = ({exercises , setExercises , bodyPart}) => {
+  // if(!exercises.length) return <Loader/>
 
   const [currentPage , setCurrentPage] = useState(1);
-  const exercisesPerPage = 9;
-
-  const indexOfLastExercise = currentPage * exercisesPerPage;
-  const indexOfFirstExercise = indexOfLastExercise - exercisesPerPage;
-  const currentExercises = exercises.slice(indexOfFirstExercise , indexOfLastExercise);
   
-  const paginate=(e, value)=>{
-    setCurrentPage(value);
-    window.scrollTo({top: 1800 , behavior: 'smooth'})
-  }
+  const [exercisesPerPage] = useState(9);
 
+  
   useEffect (()=>{
     const fetchExerciseData = async () =>{
       let exerciseData = [];
 
       if(bodyPart === 'all'){
-        exerciseData = await fetchData('https://exercisedb.p.rapidapi.com/exercises', exerciseOptions);
+        exerciseData = await fetchData('https://exercisedb.p.rapidapi.com/exercises?limit=108', exerciseOptions);
       }
       else{
-        exerciseData = await fetchData(`https://exercisedb.p.rapidapi.com/exercises/bodyPart/${bodyPart}`, exerciseOptions);
+        exerciseData = await fetchData(`https://exercisedb.p.rapidapi.com/exercises/bodyPart/${bodyPart}?limit=30`, exerciseOptions);
       }
 
       setExercises(exerciseData);
@@ -37,6 +32,22 @@ const Exercises = ({exercises , setExercises , bodyPart}) => {
     fetchExerciseData();
 
   }, [bodyPart]);
+
+  const indexOfLastExercise = currentPage * exercisesPerPage;
+  const indexOfFirstExercise = indexOfLastExercise - exercisesPerPage;
+  const currentexercises = exercises.slice(indexOfFirstExercise , indexOfLastExercise) ;
+  
+
+
+  if(!currentexercises.length) return <Loader />
+
+  const paginate=(e, value)=>{
+    setCurrentPage(value);
+    window.scrollTo({top: 1800 , behavior: 'smooth'})
+  }
+
+  
+
 
   return (
     <Box id='exercises'
@@ -50,7 +61,7 @@ const Exercises = ({exercises , setExercises , bodyPart}) => {
       </Typography>
       <Stack direction='row' sx={{gap: {lg: '110px', xs: '50px'}}}
       flexWrap='wrap' justifyContent='center'>
-        {currentExercises.map((exercise,index)=>(
+        {currentexercises.map((exercise,index)=>(
 
           <ExerciseCard key={index} exercise={exercise} />
 

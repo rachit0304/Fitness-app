@@ -1,63 +1,56 @@
 import React, {useState} from 'react'
-import { Box,Stack, Typography ,Button, TextField} from '@mui/material'
-import AddCircleIcon from '@mui/icons-material/AddCircle';
+import { Box,Stack, Typography ,Button} from '@mui/material'
+// import AddCircleIcon from '@mui/icons-material/AddCircle';
 
 export default function Bmi() {
-  console.log(AddCircleIcon);
+  // console.log(AddCircleIcon);
 
-  const [height , setHeight] = useState(0.5);
+  const [height , setHeight] = useState(100);
   const [weight , setWeight] = useState(20);
-
-  function heightinc(){
-    setHeight(height+0.1);
-  }
-  function heightdec(){
-    setHeight(height-0.1);
-
-  }
-  function weightinc(){
-    setWeight(weight+1);
-  }
-  function weightdec(){
-    setWeight(weight-1);
-  }
+  const [ans, setAns] = useState();
 
   function bmi(){
-    const bmians = weight/(height*height);
-    console.log(bmians);
+    const bmians = (weight/((height*height)/10000)).toFixed(2);
+    setAns(bmians)
+    reset();
     return bmians;
   }
-  let ans;
-  ans = (bmi()).toFixed(2);
+
+  function reset(){
+    setHeight(0);
+    setWeight(0);
+    document.getElementById('age').value =0;
+  }
 
   return (
     <Box>
-      <Typography variant='h3'>
-      Bmi Calculator
-      </Typography>
-      <Stack>
+      <h3><b>B</b>ody <b>M</b>ass <b>I</b>ndex Calculator</h3>
 
-      <Stack direction='row'>
-        <Typography>Enter your height in meters</Typography>
-        <TextField id="outlined-basic"  variant="outlined" value={height.toFixed(2)}></TextField>
-        <Button onClick={heightinc} height='30px'>+
-        </Button>
-        <Button onClick={heightdec}>-</Button>
-      </Stack>
-      <Stack> 
-        <Typography>Enter your weight in Kgs</Typography>
-        <TextField id="outlined-basic"  variant="outlined" value={weight.toFixed()}></TextField>
+<form class="form" id="form" onsubmit="return validateForm()">
+  <Box class="row-one">
+      <input type="text" class="text-input" id="age" autocomplete="off" required/><p class="text">Age</p>
+      <label class="container">
+      <input type="radio" name="radio" id="f" /><p class="text">Female</p>
+        <span class="checkmark"></span>
+      </label>
+      <label class="container">
+      <input type="radio" name="radio" id="m"/><p class="text">Male</p>
+        <span class="checkmark"></span>
+      </label>
+  </Box>
 
-        <Button onClick={weightinc}>+</Button>
-        <Button onClick={weightdec}>-</Button>
-      </Stack>
-
-      </Stack>
-
-      <Button onClick={bmi}>Calculate</Button>
-      <Typography>
-        your bmi is {ans}
-      </Typography>
+<div class="row-two">
+  <input type="text" class="text-input" id="height" autocomplete="off" required value={height} onChange={(e)=> setHeight(e.target.value)}/><Typography class="text">Height (cm)</Typography>
+  <input type="text" class="text-input" id="weight" autocomplete="off" required value={weight} onChange={(e)=> setWeight(e.target.value)}/><p class="text">Weight (kg)</p>
+</div>
+<Button onClick={bmi} type="button" id="submit">Submit</Button>
+<h3>your bmi is {ans}</h3>
+</form>
+     
     </Box>
+
   )
+
+  
 }
+
