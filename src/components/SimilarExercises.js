@@ -8,7 +8,7 @@ function SimilarExercises({targetMuscle, equipmentExercise}) {
   return (
     <Box sx={{mt: {lg: '100px', xs: '0'}}}>
       <Typography variant='h3' mb={5}>
-        Here are some exercises that target same muscle group
+        Here are some exercises that target the same muscle group as this exercise
       </Typography>
       <Stack direction='row' sx={{p:'2' , position: 'relative'}}>
       {targetMuscle.length ? <HorizontalScrollBar data={targetMuscle} /> : <Loader/>}  
