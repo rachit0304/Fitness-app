@@ -1,9 +1,10 @@
 import React from 'react'
 import { Box, Stack, Typography } from '@mui/material'
-import { red } from '@mui/material/colors'
 import Loader from './Loader'
 
 function ExerciseVideos({exerciseVideos, name}) {
+  console.log(exerciseVideos)
+
   if(!exerciseVideos.length) return <Loader/> 
   
   return (
@@ -17,7 +18,7 @@ function ExerciseVideos({exerciseVideos, name}) {
       gap: {lg: '110px', xs:'0'}
       }}
       >
-       {exerciseVideos?.slice(0 , 3).map((item,index)=>(
+       {exerciseVideos?.slice(0,3).map((item,index)=>(
         <a key={index}
         className='exercise-video'
         href={`https://www.youtube.com/watch?v=${item.video.videoId}`}
