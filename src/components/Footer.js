@@ -9,9 +9,9 @@ const Footer = () => {
       <Stack gap='40px' alignItems="center" px='40px' pt="24px">
         <img src={Logo} alt="logo" width='200px' height='40px' />
         <Typography variant='h5' pb='40px' mt='20px'>
-          Developer - Rachit Sharma
+          Developer - Dhruv
           <br />
-          Contact - rachitsharma2803@gmail.com
+          Contact - iassahab0@gmail.com
         </Typography>
       </Stack>
     </Box>
